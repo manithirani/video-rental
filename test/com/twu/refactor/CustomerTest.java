@@ -22,31 +22,33 @@ public class CustomerTest extends TestCase {
     public void setUp (){
        dinsdale.addRental(new Rental (python, 3));
        dinsdale.addRental(new Rental (ran, 1));
-       dinsdale.addRental(new Rental (la, 2));
+       dinsdale.addRental(new Rental(la, 2));
        dinsdale.addRental(new Rental (trek, 1));
        dinsdale.addRental(new Rental (wallace, 6));
    }
 
     public void testEmpty() throws Exception {
-    	dinsdale = new Customer("Dinsdale Pirhana");
-        equalsFile("1st Output", "outputEmpty", dinsdale.statement());
+        Customer newCustomer = new Customer("Dinsdale Pirhana");
+        equalsFile("outputEmpty", newCustomer.statement());
     }
     public void testCustomer() throws Exception {
-        equalsFile("1st Output", "output1", dinsdale.statement());
+        equalsFile("outputDefault", dinsdale.statement());
     }
 
     public void testChange() throws Exception {
     	la.setPriceCode(Movie.REGULAR);
-        equalsFile("1st Output", "outputChange", dinsdale.statement());
+        equalsFile("outputChange", dinsdale.statement());
     }
 
-    /*
-    public void testHtml() throws Exception {
-        equalsFile("1st Output", "outputHtml", dinsdale.htmlStatement());
-    }
-    */
+//    public void testPricingForNewReleasesAfterTwoDays() throws IOException {
+//        Customer customer = new Customer("Test customer");
+//        customer.addRental(new Rental(la, 3));
+//        equalsFile("ouputNewRelease",customer.statement());
+//
+//    }
+
     	
-    protected void equalsFile(String message, String fileName, String actualValue) throws IOException{
+    protected void equalsFile(String fileName, String actualValue) throws IOException{
         BufferedReader file = new BufferedReader (new FileReader (GOLD_PATH + '/' + fileName));
         BufferedReader actualStream = new BufferedReader (new StringReader (actualValue));
         String thisFileLine = null;
